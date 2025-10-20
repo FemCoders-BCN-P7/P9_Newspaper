@@ -1,28 +1,29 @@
 package com.newspaper.newspaper.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Data
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
+
 
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotBlank(message = "This field is mandatory")
+    @Column(nullable = false)
     private String name;
 
-    @Email(message = "The email should be 'something@gmail.com'")
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List <Article> articles = new ArrayList<>(); 
 
 }
