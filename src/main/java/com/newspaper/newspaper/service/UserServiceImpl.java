@@ -1,6 +1,5 @@
 package com.newspaper.newspaper.service;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<User> addUser(User user) {
-        userRepository.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addUser'");
     }
 
 

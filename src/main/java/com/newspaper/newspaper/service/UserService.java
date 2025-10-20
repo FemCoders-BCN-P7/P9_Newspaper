@@ -1,11 +1,12 @@
 package com.newspaper.newspaper.service;
 
-import org.springframework.http.ResponseEntity;
-
-import com.newspaper.newspaper.model.User;
+import com.newspaper.newspaper.dto.UserDTO;
+import java.util.List;
 
 public interface UserService {
 
-    ResponseEntity<User> addUser (User user);
-    
+    UserDTO createUser(UserDTO userDTO);
+    List<UserDTO> getAllUsers();
+    UserDTO getUserById(Long id);
+    void deleteUser(Long id);
 }
