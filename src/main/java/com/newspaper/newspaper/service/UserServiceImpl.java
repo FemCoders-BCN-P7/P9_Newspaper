@@ -1,10 +1,10 @@
+
 package com.newspaper.newspaper.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
 import com.newspaper.newspaper.dto.UserDTO;
 import com.newspaper.newspaper.mapper.UserMapper;
 import com.newspaper.newspaper.model.User;
@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
-
     private UserRepository userRepository;
     private final UserMapper userMapper;
 
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.toEntity(userDTO);
         User savedUser = userRepository.save(user);
         return userMapper.toDTO(savedUser);
-           }
+    }
 
     @Override
     public List<UserDTO> getAllUsers() {
@@ -46,3 +45,5 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 }
+
+
