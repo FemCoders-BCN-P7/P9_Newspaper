@@ -16,11 +16,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final UserMapper userMapper;
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
+        boolean exists = userRepository.findByEmail(userDTO.getEmail()).isPresent();
+        if (exists) {
+            throw new IllegalArgumentException("User with email " + userDTO.getEmail() + " already exists");
+        }
         User user = userMapper.toEntity(userDTO);
         User savedUser = userRepository.save(user);
         return userMapper.toDTO(savedUser);
@@ -28,22 +32,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream()
-            .map(userMapper::toDTO)
-            .collect(Collectors.toList());
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
     public UserDTO getUserById(Long id) {
-      return userRepository.findById(id)
+        return userRepository.findById(id)
                 .map(userMapper::toDTO)
-                .orElseThrow(() -> new RuntimeException("User not found")); 
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id " + id));
     }
 
     @Override
     public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("Cannot delete. User not found with id " + id);
+        }
         userRepository.deleteById(id);
     }
 }
-
-
