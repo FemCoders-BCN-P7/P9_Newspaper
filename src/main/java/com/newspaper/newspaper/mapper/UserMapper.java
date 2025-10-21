@@ -1,18 +1,37 @@
 package com.newspaper.newspaper.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.newspaper.newspaper.dto.UserDTO;
 import com.newspaper.newspaper.model.User;
 
+@Component
 public class UserMapper {
 
     public User toEntity(UserDTO userDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toEntity'");
+        if (userDTO == null) {
+            return null;
+        }
+
+        User user = new User();
+        user.setId(userDTO.getId());
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+
+        return user;
     }
 
     public UserDTO toDTO(User savedUser) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toDTO'");
+        if (savedUser == null) {
+            return null;
+        }
+
+        UserDTO dto = new UserDTO();
+        dto.setId(savedUser.getId());
+        dto.setName(savedUser.getName());
+        dto.setEmail(savedUser.getEmail());
+
+        return dto;
     }
-    
+
 }
