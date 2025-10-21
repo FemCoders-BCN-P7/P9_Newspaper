@@ -1,21 +1,16 @@
 package com.newspaper.newspaper.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.newspaper.newspaper.model.User;
+import com.newspaper.newspaper.dto.UserDTO;
 import com.newspaper.newspaper.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 
 
 @RestController
 @RequestMapping("/api/v1/users")
 
-public class UserController {
-    
+public class UserController {    
 
     private UserService userService; 
 
@@ -23,9 +18,9 @@ public class UserController {
         this.userService = userService; 
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    @PostMapping
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+       UserDTO createdUser = userService.createUser(userDTO);
+        return ResponseEntity.ok(createdUser);
     }
-    
 }
