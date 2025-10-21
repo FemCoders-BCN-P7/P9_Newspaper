@@ -21,13 +21,13 @@ public class Article {
 
    
     @Column(nullable = false, length = 255)
-    @NotBlank(message = "El título no puede estar vacío")
-    @Size(max = 255, message = "El título no puede superar los 255 caracteres")
+    @NotBlank(message = "The title cannot be empty")
+    @Size(max = 255, message = "The title cannot exceed 255 characters")
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    @NotBlank(message = "El contenido no puede estar vacío")
-    @Size(min = 50, max = 2000, message = "El contenido debe tener entre 50 y 2000 caracteres")
+    @NotBlank(message = "Content cannot be empty")
+    @Size(min = 50, max = 2000, message = "Content must be between 50 and 2000 characters.")
     private String content;
 
    
@@ -36,7 +36,7 @@ public class Article {
 
   
     @Column(nullable = false)
-    @NotBlank(message = "La categoría no puede estar vacía")
+    @NotBlank(message = "The category cannot be empty")
     private String category;
 
    
