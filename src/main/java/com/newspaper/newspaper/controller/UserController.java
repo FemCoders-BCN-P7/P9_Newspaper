@@ -3,34 +3,36 @@ package com.newspaper.newspaper.controller;
 import com.newspaper.newspaper.dto.UserDTO;
 import com.newspaper.newspaper.service.UserService;
 
+import java.net.URI;
 import java.util.List;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @RestController
 @RequestMapping("/api/v1/users")
+@RequiredArgsConstructor
+public class UserController {
 
-public class UserController {    
-
-    private UserService userService; 
-
-    public UserController(UserService userService) {
-        this.userService = userService; 
-    }
+    private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-       UserDTO createdUser = userService.createUser(userDTO);
-        return ResponseEntity.ok(createdUser);
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) {
+        UserDTO created = userService.createUser(userDTO);
+        URI location = URI.create("/api/v1/users/" + created.getId());
+        return ResponseEntity.created(location).body(created);
     }
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserDTO> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @DeleteMapping("/{id}")

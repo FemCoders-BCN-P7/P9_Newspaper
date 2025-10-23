@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -51,14 +51,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDTO updateArticle(Long id, ArticleDTO dto) {
-        Article existing = getArticleEntity(id);
-
-        articleMapper.updateEntityFromDto(dto, existing);
-
-        Article saved = articleRepository.save(existing);
-        return articleMapper.toDTO(saved);
+    Article existing = getArticleEntity(id);
+    if (dto.getContent() != null) {
+        existing.setContent(dto.getContent());
     }
-
+    Article saved = articleRepository.save(existing);
+    return articleMapper.toDTO(saved);
+    }
+    
     @Override
     public void deleteArticle(Long id) {
         if (!articleRepository.existsById(id)) {

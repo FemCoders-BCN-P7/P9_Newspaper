@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/articles")
+@RequestMapping("/api/v1/articles")
 @RequiredArgsConstructor
 public class ArticleController {
 
@@ -22,25 +22,26 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity<ArticleDTO> createArticle(@Valid @RequestBody ArticleDTO dto) {
         ArticleDTO created = articleService.createArticle(dto);
-        URI location = URI.create("/api/articles/" + created.getId());
+        URI location = URI.create("/api/v1/articles/" + created.getId());
         return ResponseEntity.created(location).body(created);
     }
 
     @GetMapping
     public ResponseEntity<List<ArticleDTO>> getAllArticles() {
-        List<ArticleDTO> articles = articleService.getAllArticles();
-        return ResponseEntity.ok(articles);
+        return ResponseEntity.ok(articleService.getAllArticles());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDTO> getArticleById(@PathVariable Long id) {
-        ArticleDTO article = articleService.getArticleById(id);
-        return ResponseEntity.ok(article);
+        return ResponseEntity.ok(articleService.getArticleById(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ArticleDTO> updateArticle(@PathVariable Long id,
-                                                    @Valid @RequestBody ArticleDTO dto) {
+    // Requisito dice "actualizar el CONTENIDO"; hacemos un endpoint focalizado:
+    @PatchMapping("/{id}/content")
+    public ResponseEntity<ArticleDTO> updateContent(@PathVariable Long id,
+                                                    @RequestBody String content) {
+        ArticleDTO dto = new ArticleDTO();
+        dto.setContent(content);
         ArticleDTO updated = articleService.updateArticle(id, dto);
         return ResponseEntity.ok(updated);
     }

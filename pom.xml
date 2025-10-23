@@ -5,9 +5,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.6</version>
+		<version>3.5.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>com.newspaper</groupId>
 	<artifactId>newspaper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -46,7 +47,6 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.7.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -81,30 +81,32 @@
 			<version>0.2.0</version>
 		</dependency>
 		<dependency>
-    	<groupId>me.paulschwarz</groupId>
-		<artifactId>spring-dotenv</artifactId>
-    	<version>3.0.0</version>
+			<groupId>me.paulschwarz</groupId>
+			<artifactId>spring-dotenv</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 	</dependencies>
+
 	<build>
     <plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<source>21</source>
+					<target>21</target>
 					<annotationProcessorPaths>
 					<path>
 						<groupId>org.mapstruct</groupId>
 						<artifactId>mapstruct-processor</artifactId>
 						<version>1.6.3</version>
+						<scope>provided</scope>
 					</path>
 					<path>
 						<groupId>org.projectlombok</groupId>
 						<artifactId>lombok</artifactId>
 						<version>1.18.34</version>
+						<scope>provided</scope>
 					</path>
 					<path>
 					<groupId>org.projectlombok</groupId>
