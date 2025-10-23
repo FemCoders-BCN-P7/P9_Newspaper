@@ -2,17 +2,17 @@ package com.newspaper.newspaper.service;
 
 import java.util.List;
 
-import com.newspaper.newspaper.entity.Article;
+import com.newspaper.newspaper.dto.ArticleDTO;
 
 public interface ArticleService {
 
-    Article createArticle(Article article);
+    ArticleDTO createArticle(ArticleDTO articleDTO);
 
-    List<Article> getAllArticles();
+    List<ArticleDTO> getAllArticles();
 
-    Article getArticleById(Long id);
+    ArticleDTO getArticleById(Long id);
 
-    Article updateArticle(Long id, Article updatedArticle);
+    ArticleDTO updateArticle(Long id, ArticleDTO articleDTO);
 
     void deleteArticle(Long id);
 }
