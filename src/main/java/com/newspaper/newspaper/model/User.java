@@ -12,7 +12,8 @@ import java.util.List;
 
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -24,6 +25,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List <Article> articles = new ArrayList<>(); 
+    @Builder.Default
+    private List<Article> articles = new ArrayList<>();
 
 }
