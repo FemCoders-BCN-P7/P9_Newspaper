@@ -1,37 +1,19 @@
 package com.newspaper.newspaper.mapper;
 
-import org.springframework.stereotype.Component;
-
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import com.newspaper.newspaper.dto.UserDTO;
 import com.newspaper.newspaper.entity.User;
 
-@Component
-public class UserMapper {
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-    public User toEntity(UserDTO userDTO) {
-        if (userDTO == null) {
-            return null;
-        }
+    @Mapping(target = "articles", ignore = true)
+    User toEntity(UserDTO dto);
 
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setName(userDTO.getName());
-        user.setEmail(userDTO.getEmail());
+    UserDTO toDTO(User entity);
 
-        return user;
-    }
-
-    public UserDTO toDTO(User savedUser) {
-        if (savedUser == null) {
-            return null;
-        }
-
-        UserDTO dto = new UserDTO();
-        dto.setId(savedUser.getId());
-        dto.setName(savedUser.getName());
-        dto.setEmail(savedUser.getEmail());
-
-        return dto;
-    }
-
+    @Mapping(target = "articles", ignore = true)
+    void updateEntityFromDto(UserDTO dto, @MappingTarget User entity);
 }
