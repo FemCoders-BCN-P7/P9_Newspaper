@@ -1,4 +1,4 @@
-package com.newspaper.newspaper.model;
+package com.newspaper.newspaper.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

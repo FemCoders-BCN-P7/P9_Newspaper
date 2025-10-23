@@ -1,6 +1,6 @@
 package com.newspaper.newspaper.service;
 
-import com.newspaper.newspaper.model.Article;
+import com.newspaper.newspaper.entity.Article;
 import com.newspaper.newspaper.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

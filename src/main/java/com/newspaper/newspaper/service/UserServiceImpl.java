@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import com.newspaper.newspaper.dto.UserDTO;
+import com.newspaper.newspaper.entity.User;
 import com.newspaper.newspaper.mapper.UserMapper;
-import com.newspaper.newspaper.model.User;
 import com.newspaper.newspaper.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

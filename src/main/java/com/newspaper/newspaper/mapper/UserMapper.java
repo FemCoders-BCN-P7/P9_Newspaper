@@ -3,7 +3,7 @@ package com.newspaper.newspaper.mapper;
 import org.springframework.stereotype.Component;
 
 import com.newspaper.newspaper.dto.UserDTO;
-import com.newspaper.newspaper.model.User;
+import com.newspaper.newspaper.entity.User;
 
 @Component
 public class UserMapper {

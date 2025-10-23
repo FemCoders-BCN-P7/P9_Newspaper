@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newspaper.newspaper.model.Article;
+import com.newspaper.newspaper.entity.Article;
 import com.newspaper.newspaper.service.ArticleService;
 
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class ArticleController {
 
     private final ArticleService articleService;
     @PostMapping
-    public ResponseEntity<Article> createArticle(@valid @RequestBody Article article){
+    public ResponseEntity<Article> createArticle(@Valid @RequestBody Article article){
         Article createdArticle = articleService.createArticle(article);
         URI location = URI.create("/api/articles/" + createdArticle.getId());
         return ResponseEntity.created(location).body(createdArticle);

@@ -1,7 +1,8 @@
 package com.newspaper.newspaper.service;
 
-import com.newspaper.newspaper.model.Article;
 import java.util.List;
+
+import com.newspaper.newspaper.entity.Article;
 
 public interface ArticleService {
 
