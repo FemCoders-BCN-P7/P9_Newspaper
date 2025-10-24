@@ -9,10 +9,11 @@ import com.newspaper.newspaper.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor 
+@RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -51,14 +52,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDTO updateArticle(Long id, ArticleDTO dto) {
-    Article existing = getArticleEntity(id);
-    if (dto.getContent() != null) {
-        existing.setContent(dto.getContent());
+        Article existing = getArticleEntity(id);
+        if (dto.getContent() != null) {
+            existing.setContent(dto.getContent());
+        }
+        Article saved = articleRepository.save(existing);
+        return articleMapper.toDTO(saved);
     }
-    Article saved = articleRepository.save(existing);
-    return articleMapper.toDTO(saved);
-    }
-    
+
     @Override
     public void deleteArticle(Long id) {
         if (!articleRepository.existsById(id)) {
@@ -70,5 +71,16 @@ public class ArticleServiceImpl implements ArticleService {
     private Article getArticleEntity(Long id) {
         return articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Article not found with id " + id));
+    }
+
+    @Override
+    public ArticleDTO updateArticleContent(Long id, String content) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Article not found with id " + id));
+
+        article.setContent(content);
+        article.setUpdatedAt(LocalDateTime.now());
+        Article saved = articleRepository.save(article);
+        return articleMapper.toDTO(saved);
     }
 }

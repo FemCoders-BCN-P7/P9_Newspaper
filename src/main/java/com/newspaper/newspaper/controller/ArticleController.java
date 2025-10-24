@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.newspaper.newspaper.dto.ArticleDTO;
+import com.newspaper.newspaper.dto.UpdateContentDTO;
 import com.newspaper.newspaper.service.ArticleService;
 
 import jakarta.validation.Valid;
@@ -36,13 +37,14 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.getArticleById(id));
     }
 
-    // Requisito dice "actualizar el CONTENIDO"; hacemos un endpoint focalizado:
     @PatchMapping("/{id}/content")
-    public ResponseEntity<ArticleDTO> updateContent(@PathVariable Long id,
-                                                    @RequestBody String content) {
-        ArticleDTO dto = new ArticleDTO();
-        dto.setContent(content);
-        ArticleDTO updated = articleService.updateArticle(id, dto);
+    public ResponseEntity<ArticleDTO> updateContent(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateContentDTO dto) {
+
+        ArticleDTO partial = new ArticleDTO();
+        partial.setContent(dto.getContent());
+        ArticleDTO updated = articleService.updateArticle(id, partial);
         return ResponseEntity.ok(updated);
     }
 

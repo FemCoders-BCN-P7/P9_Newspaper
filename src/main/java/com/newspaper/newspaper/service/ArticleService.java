@@ -15,4 +15,6 @@ public interface ArticleService {
     ArticleDTO updateArticle(Long id, ArticleDTO articleDTO);
 
     void deleteArticle(Long id);
+
+    ArticleDTO updateArticleContent(Long id, String newContent);
 }
